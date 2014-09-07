@@ -7,6 +7,12 @@ A minimalist and partial IMAP client in native Clojure.
 ## Usage
 
 ```Clojure
+[minimap "0.1.0-SNAPSHOT"]
+
+(:use [minimap.core])
+```
+
+```Clojure
 (def session (login :gmail "email@gmail.com" "password"))
 
 (search session {:gmail "in:mylable mysearchquery"})
