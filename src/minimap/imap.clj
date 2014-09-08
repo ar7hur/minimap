@@ -1,7 +1,6 @@
 (ns minimap.imap
   (:require [minimap.parse :as parse]
             [minimap.headers :as h]
-            [midje.repl]
             [ring.util.codec :as codec])
   (:import [java.io BufferedWriter BufferedReader OutputStreamWriter InputStreamReader]
            [javax.net.ssl SSLSocket SSLSocketFactory]))
