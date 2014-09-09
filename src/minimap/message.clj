@@ -15,17 +15,17 @@
 (def common-headers #{"Subject" "From" "To" "Date" "Cc"})
 
 (defn text-parts
-  [{:keys [bodystructure] :as msg}]
-  {:pre [bodystructure]}
   "Returns [path-of-text/pain path-of-text/html]
   where path references a body part, e.g. 1.1"
+  [{:keys [bodystructure] :as msg}]
+  {:pre [bodystructure]}
   (let [tp (first (filter #(= "text/plain" (:content-type %)) bodystructure))
         th (first (filter #(= "text/html" (:content-type %)) bodystructure))]
     [tp th]))
 
-(defn assoc-common [msg]
+(defn assoc-common
   "Assoc common headers and flags like Subject, To"
-  (prn (:flags msg))
+  [msg]
   (-> msg
       (into (->> (:headers msg)
                  (filter (comp common-headers first))
@@ -85,8 +85,9 @@
 (defn all-meta []
   (map #(into {:msg-id %} (retrieve-obj "meta" %)) (all-meta-ids)))
 
-(defn lines [msg]
+(defn lines
   "Returns a sequence of [start end] for each line in the plain text body, excluding the \n"
+  [msg]
   (when-let [text (:plain msg)]
     (loop [idx (.indexOf text "\n" 0) start 0 acc []]
       (if (= -1 idx)
