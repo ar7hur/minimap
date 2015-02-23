@@ -81,14 +81,14 @@
 (defn search
   "Returns a list of uids (strings)"
   [sess {:keys [gmail] :as query}]
-  (let [_    (deref (do-command sess "select inbox"))
+  (let [_    (deref (do-command sess "select \"[Gmail]/All Mail\""))
         resp (deref (do-command sess (if gmail (format "SEARCH X-GM-RAW \"%s\"" gmail)
                                                        "SEARCH UNSEEN")))]
         (when resp
           (drop 2 (-> resp first first (clojure.string/split #" "))))))
 
 (defn fetch-headers [sess uids]
-  (let [gmail-ext (if (:gmail sess) "X-GM-MSGID X-GM-THRID " "")
+  (let [gmail-ext (if (:gmail @sess) "X-GM-MSGID X-GM-THRID " "")
         resp (deref (do-command sess (format "fetch %s (body.peek[header] %sFLAGS BODYSTRUCTURE)" 
                                              (clojure.string/join "," uids) gmail-ext)))]
     (map parse/parse-fetch resp)))

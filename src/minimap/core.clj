@@ -2,11 +2,7 @@
   (:use [plumbing.core])
   (:require [minimap.imap :as imap]
             [minimap.message :as msg]
-            [clojure.string :as string]
-            [midje.repl]))
-
-(defn dev []
-  (midje.repl/autotest))
+            [clojure.string :as string]))
 
 (defn login
   "Returns an imap session connected to the given account.
@@ -63,7 +59,7 @@
 (defn go [pwd]
   (let [session (login :gmail "a@lxbrun.com" pwd)
         msgs (->> (search session {:gmail "after:2014/9/1" :max 10})
-                  (map #(fetch session :plain-or-html %)))]
-
-    (prn (map :plain msgs))
-    (logout session)))
+                  (map #(fetch session :plain-or-html %)))
+        subjects (map :from msgs)]
+    #_(logout session)
+    subjects))
