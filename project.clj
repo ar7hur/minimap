@@ -1,4 +1,4 @@
-(defproject minimap "0.1.1"
+(defproject imap "0.1.1"
   :description "A minimal and partial native IMAP client with no dependencies on javax.mail"
   :url "https://github.com/ar7hur/minimap"
   :license {:name "Eclipse Public License"

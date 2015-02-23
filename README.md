@@ -1,4 +1,4 @@
-# Minimap
+# Imap
 
 A minimalist and partial IMAP client in native Clojure.
 - Does not rely on javax.mail
